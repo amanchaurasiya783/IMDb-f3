@@ -10,16 +10,26 @@ const API_KEY = `7c827624`;
 
 //fetch data by movie name
 async function fetchMovieDataByName(movieName, apiKey){
-    const url = `${URL}?s=${movieName}&apikey=${apiKey}`;
-    const response = await fetch(url);
-    const result = await response.json();
-    return result;
+    try{
+        const url = `${URL}?s=${movieName}&apikey=${apiKey}`;
+        const response = await fetch(url);
+        const result = await response.json();
+        return result;
+    }
+    catch(err){
+        alert("Invalid API KEY !");
+        window.location.reload();
+    }
 }
 
 //render Fetched Data on Page
 function addDataOnUI(result){
     let count = 0;
     document.getElementById('main').innerHTML = "";
+    if(!result || result.Error){
+        alert("No Movie Found With This Name | Please Try Again !");
+        window.location.reload();
+    }
 
     result.forEach(movie => {
         const data = `
@@ -35,24 +45,27 @@ function addDataOnUI(result){
     });
 }
 
+//click event to search data
 SearchBtn.addEventListener('click', async ()=>{
-    showLoader();
-    if(SearchInput.value = "" || SearchInput.value.trim() == ""){
-        alert("Enter Movie Name In Search Box");
-        return;
+
+    let movieName = SearchInput.value;
+    let apiKey = apiKeyInput.value;
+
+    if(movieName === "" || movieName.trim() === ""){
+        return alert("Enter Movie Name In Search Box");
     }
-    if(apiKeyInput.value = "" || apiKeyInput.value.trim() == ""){
-        alert("Enter Your API KEY to API FIELD");
-        return;
+    if(apiKey === "" || apiKey.trim() === ""){
+        return alert("Enter Your API KEY to API FIELD");
     }
     
-    const data = await fetchMovieDataByName(SearchInput.value, apiKeyInput.value);
-    console.log(data.Search);
+    showLoader();
+    const data = await fetchMovieDataByName(movieName, apiKey);
     addDataOnUI(data.Search);
     hideLoader();
 })
 
-SearchInput.addEventListener("keypress", function(event) {
+//Enter button click event to trigger search data
+SearchInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
         event.preventDefault();
         SearchBtn.click();

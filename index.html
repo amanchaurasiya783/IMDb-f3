@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>IMDb</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="heading">IMDB MOVIES APP</h1>
+            <div class="inputContainer">
+                <input type="text" placeholder="API_KEY" class="inputField" id="apiKeyInput" name="apiKeyInput" required />
+                <span id="apiSearchBtn" class="material-symbols-outlined SearchBtn">key</span>
+            </div>
+            <div class="inputContainer">
+                <input type="text" placeholder="Search" id="SearchInput" class="inputField" name="SearchInput" required />
+                <span id="SearchBtn" class="material-symbols-outlined SearchBtn">search</span>
+            </div>
+        </header>
+        <div class="spinner" id="spinner"></div>
+        <main id="main">
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
